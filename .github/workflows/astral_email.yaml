@@ -1,0 +1,37 @@
+name: Send Email
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * *"  # Adjust schedule as needed
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install ssmtp
+      run: sudo apt-get install -y ssmtp
+
+    - name: Configure SSMTP
+      run: |
+        echo "root=$EMAIL_USER" | sudo tee -a /etc/ssmtp/ssmtp.conf
+        echo "mailhub=$SMTP_SERVER:$SMTP_PORT" | sudo tee -a /etc/ssmtp/ssmtp.conf
+        echo "AuthUser=$EMAIL_USER" | sudo tee -a /etc/ssmtp/ssmtp.conf
+        echo "AuthPass=$EMAIL_PASS" | sudo tee -a /etc/ssmtp/ssmtp.conf
+        echo "UseSTARTTLS=YES" | sudo tee -a /etc/ssmtp/ssmtp.conf
+        echo "FromLineOverride=YES" | sudo tee -a /etc/ssmtp/ssmtp.conf
+
+    - name: Send Email
+      run: |
+        TO_EMAIL="hefnerjoseph87@gmail.com"
+        SUBJECT="Test Email"
+        # BODY=$(cat email_body.txt)
+        BODY="Test Body"
+        echo -e "To: $TO_EMAIL\nSubject: $SUBJECT\n\n$BODY" | ssmtp $TO_EMAIL
+      env:
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}
+        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
