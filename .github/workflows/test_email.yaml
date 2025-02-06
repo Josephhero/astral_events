@@ -3,7 +3,6 @@ name: Test Email
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 1 PM UTC (5 AM California Time)
     - cron: '0 13 * * *'
 
 jobs:
@@ -14,13 +13,13 @@ jobs:
       - name: Send Email
         uses: hilarion5/send-mail@v1
         with:
-          smtp-server: smtp.office365.com  # Example for Outlook
+          smtp-server: smtp.gmail.com
           smtp-port: 587
           smtp-secure: true
           from-email: hefnerjoseph87@gmail.com
           to-email: hefnerjoseph87@gmail.com
-          username: hefnerjoseph87
-          password: "!Excalibur11"
+          username: hefnerjoseph87@gmail.com
+          password: "jmre fzfq fnfx hdeh"
           subject: Test Email
           body: This is a test email sent from GitHub Actions.
           html: |
