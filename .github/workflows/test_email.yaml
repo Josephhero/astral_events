@@ -3,28 +3,23 @@ name: Test Email
 on:
   workflow_dispatch:
   schedule:
-    # Runs at 1 PM UTC (5 AM California Time, during Standard Time)
+    # Runs at 1 PM UTC (5 AM California Time)
     - cron: '0 13 * * *'
 
 jobs:
   send_email:
     runs-on: ubuntu-latest
-    
-    # Set environment variables at the job level
-    env:
-      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-      GMAIL_OAUTH_GPG: ${{ secrets.GMAIL_OAUTH_GPG }}
 
     steps:
       - name: Send Email
         uses: hilarion5/send-mail@v1
         with:
-          smtp-server: smtp.example.com
-          smtp-port: 465
+          smtp-server: smtp.office365.com  # Example for Outlook
+          smtp-port: 587
           smtp-secure: true
           from-email: hefnerjoseph87@gmail.com
           to-email: hefnerjoseph87@gmail.com
-          username: hefnerjoseph87@gmail.com
+          username: hefnerjoseph87
           password: "!Excalibur11"
           subject: Test Email
           body: This is a test email sent from GitHub Actions.
