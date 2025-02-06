@@ -21,26 +21,4 @@ jobs:
             any::readr
             any::lubridate
 
-      - name: Check out repository
-        uses: actions/checkout@v3
-
-      - name: Run R Script and Capture Email Variables
-        id: get_email_content
-        run: |
-          Rscript -e 'source("R/monicas_messages.R"); cat(paste0("::set-output name=subject::", em_subject, "\n"))'
-          Rscript -e 'cat(paste0("::set-output name=body::", message, "\n"))'
-
-      - name: Send Email
-        uses: hilarion5/send-mail@v1
-        with:
-          smtp-server: smtp.gmail.com
-          smtp-port: 465
-          smtp-secure: true
-          from-email: hefnerjoseph87@gmail.com
-          to-email: hefnerjoseph87@gmail.com
-          username: hefnerjoseph87@gmail.com
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: ${{ steps.get_email_content.outputs.subject }}
-          body: ${{ steps.get_email_content.outputs.body }}
-          html: |
-            <p>${{ steps.get_email_content.outputs.body }}</p>
+      
