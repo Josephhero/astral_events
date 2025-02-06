@@ -44,7 +44,8 @@ jobs:
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
 
-          # Decrypt the GPG passphrase and import the key
+      - name: Decrypt GPG passphrase
+        run: |
           echo "$GPG_PASSPHRASE" > gpg_passphrase.txt
           gpg --batch --yes --passphrase-file gpg_passphrase.txt --output decrypted_oauth.json --decrypt <<< "$GMAIL_OAUTH_GPG"
 
