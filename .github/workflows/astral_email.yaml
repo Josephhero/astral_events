@@ -3,35 +3,30 @@ name: Send Email
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * *"  # Adjust schedule as needed
+    # Runs at 1 PM UTC (5 AM California Time, during Standard Time)
+    - cron: '0 13 * * *'
 
 jobs:
-  send-email:
+  send_email:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      # Step 1: Checkout the code
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Install ssmtp
-      run: sudo apt-get install -y ssmtp
+      # Step 2: Set up R environment
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2'
 
-    - name: Configure SSMTP
-      run: |
-        echo "root=$EMAIL_USER" | sudo tee -a /etc/ssmtp/ssmtp.conf
-        echo "mailhub=$SMTP_SERVER:$SMTP_PORT" | sudo tee -a /etc/ssmtp/ssmtp.conf
-        echo "AuthUser=$EMAIL_USER" | sudo tee -a /etc/ssmtp/ssmtp.conf
-        echo "AuthPass=$EMAIL_PASS" | sudo tee -a /etc/ssmtp/ssmtp.conf
-        echo "UseSTARTTLS=YES" | sudo tee -a /etc/ssmtp/ssmtp.conf
-        echo "FromLineOverride=YES" | sudo tee -a /etc/ssmtp/ssmtp.conf
+      # Step 3: Install dependencies
+      - name: Install R dependencies
+        run: |
+          install.packages("gmailr")
+          install.packages("lubridate")
+          install.packages("dplyr")
+          install.packages("readr")
+          install.packages("gpg")
 
-    - name: Send Email
-      run: |
-        TO_EMAIL="hefnerjoseph87@gmail.com"
-        SUBJECT="Test Email"
-        # BODY=$(cat email_body.txt)
-        BODY="Test Body"
-        echo -e "To: $TO_EMAIL\nSubject: $SUBJECT\n\n$BODY" | ssmtp $TO_EMAIL
-      env:
-        EMAIL_USER: ${{ secrets.EMAIL_USER }}
-        EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
