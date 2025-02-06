@@ -6,43 +6,21 @@ library(lubridate)
 # Data-----
 
 year <- 2025
-astral <- read_csv(paste0(year, "_astral_data.csv")) |> 
-  mutate(full_date = lubridate::mdy(full_date))
+astral <- read_csv("./Data/monicas_astral_data.csv")
+current_time_ca <- with_tz(Sys.time(), tzone = "America/Los_Angeles")
 
-moon <- read_csv(paste0(year, "_moon_data.csv")) |> 
-  mutate(full_date = lubridate::mdy(full_date))
+today <- lubridate::as_date(Sys.time(), tz = "America/Los_Angeles")
+events_today <- astral |> 
+  filter(full_date == today)
 
-moon_astral <- left_join(moon, astral, by = "full_date") |> 
-  mutate(season = if_else(type %in% c("equinox", "solstice"), 1, 0, missing = 0)) |> 
-  mutate(season_group = cumsum(season == 1) + 1) |> 
-  mutate(meteor = if_else(type == "meteor", 1, 0, missing = 0)) |> 
-  mutate(meteor_group = cumsum(meteor == 1) + 1) |> 
-  mutate(season_days = row_number(), .by = season_group) |> 
-  mutate(meteor_days = row_number(), .by = meteor_group) |> 
-  mutate(days_until_season = if_else(
-    type %in% c("equinox", "solstice"), 
-    0, 
-    (max(season_days) - season_days) + 1), .by = season_group) |> 
-  mutate(days_until_meteor = case_when(
-    type == "meteor" ~ 0, 
-    TRUE ~ (max(meteor_days) - meteor_days) + 1), 
-    .by = meteor_group) |> 
-  mutate(season_type = case_when(
-    season_group %in% c(1, 3) ~ "Equinox", 
-    season_group %in% c(2, 4) ~ "Solstice", 
-  ))
-  
-
-events_today <- moon_astral |> 
-  filter(full_date == Sys.Date())
-
-next_meteor <- moon_astral |> 
-  filter(full_date > Sys.Date(), type == "meteor") |> 
+next_meteor <- astral |> 
+  filter(full_date > today, type == "meteor") |> 
   head(n = 1)
-  
+
 
 # Message-----
 em_date <- paste0("<b>", format(events_today$full_date[1], "%b %d, %Y"), "</b>")
+em_subject <- paste0("Astral Report: ", format(events_today$full_date[1], "%b %d, %Y"))
 em_illum <- paste0("<b>Lunar Illumination:</b> ", events_today$illumination[1] * 100, "%")
 em_age <- paste0("<b>Age of Moon:</b> ", events_today$moon_age[1], " Days")
 em_new <- paste0("<b>New Moon:</b> ", events_today$days_until_new_moon[1], " Days")
@@ -75,7 +53,7 @@ if (em_title3 != "NA") {
 } else {
   em_events <- "No Current Events"
 }
-  
+
 message <- 
   paste0(
     em_date, "<br>", 
@@ -89,34 +67,14 @@ message <-
   )
 
 
-message
-
-
-
-
-send_text(message)
-
-
 # Email-----
 
 astral_email <-
   gm_mime() |>
   gm_to("mmrojas1986@gmail.com") |> 
   gm_from("hefnerjoseph87@gmail.com") |>
-  gm_subject(paste0("Jan 31 Astral Report")) |>
-  gm_html_body(message
-  )
-
-d <- gm_create_draft(astral_email)
- 
+  gm_subject(em_subject) |>
+  gm_html_body(message)
 
 gm_send_message(astral_email)
-
-
-
-
-
-
-
-
 
