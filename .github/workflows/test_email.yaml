@@ -10,6 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Run R Script and Capture Email Variables
+        id: get_email_content
+        run: |
+          Rscript -e 'source("R/monicas_messages.R"); cat(paste0("::set-output name=subject::", em_subject, "\n"))'
+          Rscript -e 'cat(paste0("::set-output name=body::", message, "\n"))'
+
       - name: Send Email
         uses: hilarion5/send-mail@v1
         with:
@@ -20,8 +32,7 @@ jobs:
           to-email: hefnerjoseph87@gmail.com
           username: hefnerjoseph87@gmail.com
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: Test Email
-          body: This is a test email sent from GitHub Actions.
+          subject: ${{ steps.get_email_content.outputs.subject }}
+          body: ${{ steps.get_email_content.outputs.body }}
           html: |
-            <h1>This is a test email</h1>
-            <p>Test Paragraph</p>
+            <p>${{ steps.get_email_content.outputs.body }}</p>
