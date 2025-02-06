@@ -21,4 +21,31 @@ jobs:
             any::readr
             any::lubridate
 
-      
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Run R Script and Capture Email Content
+        run: |
+          Rscript -e 'source("R/monicas_messages.R"); writeLines(em_subject, "email_subject.txt"); writeLines(message, "email_body.txt")'
+
+      - name: Read Subject and Body
+        id: read_email_content
+        run: |
+          echo "email_subject=$(< email_subject.txt)" >> $GITHUB_OUTPUT
+          echo "email_body=$(< email_body.txt)" >> $GITHUB_OUTPUT
+
+      - name: Send Email
+        uses: hilarion5/send-mail@v1
+        with:
+          smtp-server: smtp.gmail.com
+          smtp-port: 465
+          smtp-secure: true
+          from-email: hefnerjoseph87@gmail.com
+          to-email: hefnerjoseph87@gmail.com
+          username: hefnerjoseph87@gmail.com
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "${{ steps.read_email_content.outputs.email_subject }}"
+          body: "${{ steps.read_email_content.outputs.email_body }}"
+          html: |
+            ${{ steps.read_email_content.outputs.email_body }}
+  
