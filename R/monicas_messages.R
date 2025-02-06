@@ -1,6 +1,5 @@
 library(dplyr)
 library(readr)
-library(gmailr)
 library(lubridate)
 
 # Data-----
@@ -65,16 +64,4 @@ message <-
     em_meteor, "<br>", 
     em_meteor_shower
   )
-
-
-# Email-----
-
-astral_email <-
-  gm_mime() |>
-  gm_to("mmrojas1986@gmail.com") |> 
-  gm_from("hefnerjoseph87@gmail.com") |>
-  gm_subject(em_subject) |>
-  gm_html_body(message)
-
-gm_send_message(astral_email)
 
