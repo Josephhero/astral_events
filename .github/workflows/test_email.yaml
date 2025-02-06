@@ -14,12 +14,12 @@ jobs:
         uses: hilarion5/send-mail@v1
         with:
           smtp-server: smtp.gmail.com
-          smtp-port: 587
+          smtp-port: 465
           smtp-secure: true
           from-email: hefnerjoseph87@gmail.com
           to-email: hefnerjoseph87@gmail.com
           username: hefnerjoseph87@gmail.com
-          password: "jmre fzfq fnfx hdeh"
+          password: ${{ secrets.SMTP_PASSWORD }}
           subject: Test Email
           body: This is a test email sent from GitHub Actions.
           html: |
