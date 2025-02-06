@@ -16,12 +16,6 @@ jobs:
       GMAIL_OAUTH_GPG: ${{ secrets.GMAIL_OAUTH_GPG }}
       
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      # Step 2: Set up R environment
-      steps:
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
@@ -37,4 +31,5 @@ jobs:
             any::gmailr
             any::gpg
 
-
+      - name: Check out repository
+        uses: actions/checkout@v3
