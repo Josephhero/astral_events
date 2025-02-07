@@ -12,8 +12,16 @@ today <- lubridate::as_date(Sys.time(), tz = "America/Los_Angeles")
 events_today <- astral |> 
   filter(full_date == today)
 
+next_sol <- astral |> 
+  filter(full_date > today, type %in% c("solstice", "equinox")) |> 
+  head(n = 1)
+
 next_meteor <- astral |> 
   filter(full_date > today, type == "meteor") |> 
+  head(n = 1)
+
+next_eclipse <- astral |> 
+  filter(full_date > today, type == "eclipse") |> 
   head(n = 1)
 
 
@@ -29,9 +37,11 @@ em_title2 <- paste0(events_today$title[2])
 em_text2 <- paste0(events_today$text[2])
 em_title3 <- paste0(events_today$title[3])
 em_text3 <- paste0(events_today$text[3])
-em_sols <- paste0("<b>Next ", events_today$season_type, ":</b> ", events_today$days_until_season[1], " Days")
-em_meteor <- paste0("<b>Next Meteor Shower:</b> ", events_today$days_until_season[1], " Days")
-em_meteor_shower <- paste0("~", next_meteor$title, " (", next_meteor$days, ")")
+em_sols <- paste0("<b>Next ", events_today$season_type, ":</b> ", 
+                  format(next_sol$full_date[1], "%b %d, %Y"))
+em_meteor <- paste0("<b>Next Meteor Shower:</b> ", next_meteor$days[1])
+em_meteor_shower <- paste0("~", next_meteor$title[1])
+em_eclipse <- paste0("Next Eclipse: ", next_eclipse$days[1])
 
 
 if (em_title3 != "NA") {
@@ -55,13 +65,14 @@ if (em_title3 != "NA") {
 
 message <- 
   paste0(
-    em_date, "<br>", 
+    em_date, "<br><br>", 
     em_illum, "<br>", 
     em_age, "<br>", 
     em_new, "<br><br>", 
     em_events, "<br><br>", 
     em_sols, "<br>", 
-    em_meteor, "<br>", 
+    em_eclipse, "<br>", 
+    em_meteor, "<br>",
     em_meteor_shower
   )
 
