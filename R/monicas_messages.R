@@ -37,11 +37,17 @@ em_title2 <- paste0(events_today$title[2])
 em_text2 <- paste0(events_today$text[2])
 em_title3 <- paste0(events_today$title[3])
 em_text3 <- paste0(events_today$text[3])
-em_sols <- paste0("<b>Next ", events_today$season_type, ":</b> ", 
+em_sols <- paste0("<b>Next ", next_sol$type, ":</b> ", 
                   format(next_sol$full_date[1], "%b %d, %Y"))
-em_meteor <- paste0("<b>Next Meteor Shower:</b> ", next_meteor$days[1], ", ", year)
+em_meteor <- if_else(
+  is.na(next_meteor$days), 
+  paste0("<b>Next Meteor Shower:</b> ", format(next_meteor$full_date, format="%b %d, %Y")), 
+  paste0("<b>Next Meteor Shower:</b> ", next_meteor$days[1], ", ", year))
 em_meteor_shower <- paste0("~", next_meteor$title[1])
-em_eclipse <- paste0("<b>Next Eclipse:</b> ", next_eclipse$days[1], ", ", year)
+em_eclipse <- if_else(
+  is.na(next_eclipse$days), 
+  paste0("<b>Next Eclipse:</b> ", format(next_eclipse$full_date, format="%b %d, %Y")), 
+  paste0("<b>Next Eclipse:</b> ", next_eclipse$days[1], ", ", year))
 
 
 if (em_title3 != "NA") {
