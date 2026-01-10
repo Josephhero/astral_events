@@ -4,7 +4,7 @@ library(lubridate)
 
 # Data-----
 
-year <- 2025
+year <- 2026
 astral <- read_csv("./Data/monicas_astral_data.csv")
 current_time_ca <- with_tz(Sys.time(), tzone = "America/Los_Angeles")
 
