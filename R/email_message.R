@@ -60,7 +60,7 @@ em_subject <- glue(
 message <- glue(
   "<b>{format(events_today$full_date[1], '%b %d, %Y')}</b><br><br>",
   "<b>Lunar Illumination:</b> {events_today$illumination[1] * 100}%  ",
-  "<img src='{moon_url}' alt='Moon' style='width:25px;height:25px;vertical-align:middle;'>",
+  "<img src='{moon_url}' alt='Moon' style='width:40px;height:40px;vertical-align:middle;'>",
   "<br>",
   "<b>Age of Moon:</b> {events_today$moon_age[1]} Days<br>",
   "<b>New Moon:</b> {events_today$days_until_new_moon[1]} Days<br><br>",
