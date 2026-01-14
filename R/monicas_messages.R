@@ -8,20 +8,20 @@ astral <- read_csv("./Data/monicas_astral_data.csv")
 today <- as_date(Sys.time(), tz = "America/Los_Angeles")
 
 # Get today's events
-events_today <- astral |> 
+events_today <- astral |>
   filter(full_date == today)
 
 # Get next events of interest
-next_sol <- astral |> 
-  filter(full_date > today, type %in% c("solstice", "equinox")) |> 
+next_sol <- astral |>
+  filter(full_date > today, type %in% c("solstice", "equinox")) |>
   slice(1)
 
-next_meteor <- astral |> 
-  filter(full_date > today, type == "meteor") |> 
+next_meteor <- astral |>
+  filter(full_date > today, type == "meteor") |>
   slice(1)
 
-next_eclipse <- astral |> 
-  filter(full_date > today, type == "eclipse") |> 
+next_eclipse <- astral |>
+  filter(full_date > today, type == "eclipse") |>
   slice(1)
 
 # Helper function to format date display
@@ -47,6 +47,11 @@ if (current_events == "") {
   current_events <- "No Current Events"
 }
 
+# Build email subject
+em_subject <- glue(
+  "Astral Report: {format(events_today$full_date[1], '%b %d, %Y')}"
+)
+
 # Build email content
 message <- glue(
   "<b>{format(events_today$full_date[1], '%b %d, %Y')}</b><br><br>",
@@ -58,3 +63,7 @@ message <- glue(
   "<b>Next Eclipse:</b> {format_date(next_eclipse$full_date[1], next_eclipse$days[1])}<br>",
   "<b>Next Meteor Shower:</b> {format_date(next_meteor$full_date[1], next_meteor$days[1])}<br>"
 )
+
+# Write outputs for GitHub Actions
+cat(em_subject, file = "email_subject.txt", sep = "")
+cat(message, file = "email_body.txt", sep = "")
