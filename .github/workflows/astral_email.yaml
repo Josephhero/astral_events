@@ -20,6 +20,10 @@ jobs:
             any::dplyr
             any::readr
             any::lubridate
+            any::ggplot2
+            any::gggibbous
+            any::base64enc
+            any::glue
 
       - name: Check out repository
         uses: actions/checkout@v3
