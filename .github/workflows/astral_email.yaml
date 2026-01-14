@@ -72,9 +72,9 @@ jobs:
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
-          username: hefnerjoseph87@gmail.com
+          username: ${{ secrets.EMAIL_FROM }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: ${{ steps.read_email_content.outputs.email_subject }}
-          to: hefnerjoseph87@gmail.com
-          from: hefnerjoseph87@gmail.com
+          to: ${{ secrets.EMAIL_FROM }}
+          from: ${{ secrets.EMAIL_FROM }}
           html_body: file://email_body.txt
