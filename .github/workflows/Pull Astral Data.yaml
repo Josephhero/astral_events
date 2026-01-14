@@ -32,7 +32,7 @@ jobs:
             any::janitor
 
       - name: Pull Astral Data
-        run: Rscript -e 'source("R/Get Astral Data.R")'
+        run: Rscript -e 'source("R/Get Astral Events.R")'
 
       - name: Commit results
         run: |
