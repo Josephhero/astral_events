@@ -28,7 +28,7 @@ jobs:
             any::gggibbous
 
       - name: Create moon image
-        run: Rscript -e 'source("R/create_moon_image.R")'
+        run: Rscript -e 'source("R/Create Moon Image.R")'
 
       - name: Commit moon image
         run: |
