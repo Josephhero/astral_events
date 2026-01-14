@@ -8,8 +8,8 @@ library(lubridate)
 
 # Data-----
 
-source("R/scrape_moon_data.R")
-source("R/scrape_astral_events.R")
+source("R/scrape_moon.R")
+source("R/scrape_events.R")
 
 # Get current year
 year <- year(now(tzone = "America/Los_Angeles"))
