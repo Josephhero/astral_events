@@ -4,7 +4,6 @@ library(readr)
 library(glue)
 library(ggplot2)
 library(gggibbous)
-library(base64enc)
 
 year <- year(now(tzone = "America/Los_Angeles"))
 astral <- read_csv("./Data/monicas_astral_data.csv")
@@ -27,49 +26,9 @@ next_eclipse <- astral |>
   filter(full_date > today, type == "eclipse") |>
   slice(1)
 
-# Get tomorrow's illumination to determine waxing vs waning
-tomorrow <- today + 1
-events_tomorrow <- astral |>
-  filter(full_date == tomorrow)
+# URL for your image
+moon_url <- "https://raw.githubusercontent.com/Josephhero/astral_events/main/Images/moon_phase.png"
 
-# Determine if waxing (growing) or waning (shrinking)
-is_waxing <- events_tomorrow$illumination[1] > events_today$illumination[1]
-
-# Create moon phase image
-moon_plot <- ggplot() +
-  gggibbous::geom_moon(
-    aes(x = 0, y = 0, ratio = 1, fill = "gray20"),
-    size = 22
-  ) +
-  gggibbous::geom_moon(
-    aes(
-      x = 0,
-      y = 0,
-      ratio = events_today$illumination[1],
-      fill = "#FFFAF0",
-      right = !is_waxing
-    ),
-    size = 20
-  ) +
-  scale_fill_identity() +
-  theme_void() +
-  theme(plot.margin = margin(0, 0, 0, 0))
-
-# Save the plot
-ggsave(
-  "Images/moon_phase.png",
-  moon_plot,
-  width = 1,
-  height = 1,
-  units = "in",
-  dpi = 150,
-  bg = "transparent"
-)
-
-# Convert to base64
-moon_base64 <- base64encode("Images/moon_phase.png")
-
-# Helper function to format date display
 format_date <- function(date, days = NA) {
   if (is.na(date)) {
     return("None listed")
@@ -97,11 +56,11 @@ em_subject <- glue(
   "Astral Report: {format(events_today$full_date[1], '%b %d, %Y')}"
 )
 
-# Build email content
+# Build email content with linked image
 message <- glue(
   "<b>{format(events_today$full_date[1], '%b %d, %Y')}</b><br><br>",
   "<b>Lunar Illumination:</b> {events_today$illumination[1] * 100}%  ",
-  "<img src='data:image/png;base64,{moon_base64}' alt='Moon' style='width:30px;height:30px;vertical-align:middle;'>",
+  "<img src='{moon_url}' alt='Moon' style='width:25px;height:25px;vertical-align:middle;'>",
   "<br>",
   "<b>Age of Moon:</b> {events_today$moon_age[1]} Days<br>",
   "<b>New Moon:</b> {events_today$days_until_new_moon[1]} Days<br><br>",
@@ -114,3 +73,5 @@ message <- glue(
 # Write outputs for GitHub Actions
 cat(em_subject, file = "email_subject.txt", sep = "")
 cat(message, file = "email_body.txt", sep = "")
+
+
