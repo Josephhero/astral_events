@@ -29,4 +29,4 @@ moon <- bind_rows(
 
 all_data <- full_join(moon, astral, by = "full_date")
 
-readr::write_csv(all_data, "astral_data.csv")
+readr::write_csv(all_data, paste0("Data/monicas_astral_data.csv"))
