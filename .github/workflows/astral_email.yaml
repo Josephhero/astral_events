@@ -39,17 +39,15 @@ jobs:
           echo "email_body=$(< email_body.txt)" >> $GITHUB_OUTPUT
 
       - name: Send Email
-        uses: hilarion5/send-mail@v1
+        uses: dawidd6/action-send-mail@v3
         with:
-          smtp-server: smtp.gmail.com
-          smtp-port: 465
-          smtp-secure: true
-          from-email: hefnerjoseph87@gmail.com
-          to-email: mmrojas1986@gmail.com
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
           username: hefnerjoseph87@gmail.com
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "${{ steps.read_email_content.outputs.email_subject }}"
-          body: ""
-          html: |
-            ${{ steps.read_email_content.outputs.email_body }}
+          subject: ${{ steps.read_email_content.outputs.email_subject }}
+          to: hefnerjoseph87@gmail.com
+          from: hefnerjoseph87@gmail.com
+          html_body: file://email_body.txt
   
