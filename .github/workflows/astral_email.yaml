@@ -58,7 +58,7 @@ jobs:
             any::glue
 
       - name: Run R Script and Capture Email Content
-        run: Rscript -e 'source("R/monicas_messages.R")'
+        run: Rscript -e 'source("R/email_message.R")'
 
       - name: Read Subject and Body
         id: read_email_content
