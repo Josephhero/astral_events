@@ -1,39 +1,64 @@
+library(lubridate)
+library(rvest)
 library(dplyr)
 library(tidyr)
-library(readr)
-library(stringr)
-library(polite)
-library(rvest)
-library(lubridate)
 
-#Data----- 
+# Data-----
 
-year = 2025
-url <- paste0("https://aa.usno.navy.mil/calculated/moon/fraction?year=", 
-              year, 
-              "&task=00&tz=8.00&tz_sign=-1&tz_label=false&submit=Get+Data")
+# Function to scrape moon data for a given year
+get_moon_data <- function(year, timezone = 8, midnight_offset = 3) {
+  # set url with year and timezone
+  url <- paste0(
+    "https://aa.usno.navy.mil/calculated/moon/fraction?year=",
+    year,
+    "&task=00&tz=",
+    (timezone - midnight_offset),
+    ".00&tz_sign=-1&tz_label=false&submit=Get+Data"
+  )
 
-#"https://aa.usno.navy.mil/calculated/moon/fraction?year=2025&task=00&tz=8.00&tz_sign=-1&tz_label=false&submit=Get+Data"
+  # Try direct scraping
+  page <- read_html(url)
 
-# Just copy/paste the data into a csv. Keep it easy. 
-# Delete the "--" for non-days
+  # Extract table rows manually
+  rows <- page %>%
+    html_elements("table tr")
 
-moon_data <- read_csv("moon_data.csv") |> 
-  janitor::clean_names() |> 
-  pivot_longer(cols = jan:dec) |> 
-  rename(month = name, illumination = value) |> 
-  filter(!is.na(illumination)) |> 
-  mutate(full_date = lubridate::as_date(paste0("2024-", month, "-", day))) |> 
-  select(full_date, illumination)  |> 
-  mutate(moon_group = cumsum(illumination == 0) + 1) |> 
-  mutate(moon_age = row_number(), .by = moon_group) |> 
-  mutate(days_until_new_moon = (max(moon_age) - moon_age) + 1, .by = moon_group)
-  
+  # Extract the data from each row
+  moon_list <- rows %>%
+    lapply(function(row) {
+      row %>%
+        html_elements("td") %>%
+        html_text()
+    })
 
-write_csv(moon_data, paste0(year, "_moon_data.csv"))
+  # Remove empty rows and convert to dataframe
+  moon_list <- moon_list[sapply(moon_list, length) > 0]
 
-  
+  moon_data <- do.call(rbind, moon_list) %>%
+    as.data.frame()
 
+  # Remove first row
+  moon_data <- moon_data[-1, ]
 
+  # Use first row as column names
+  colnames(moon_data) <- moon_data[1, ]
 
+  # Remove that first row (which is now the header)
+  moon_data <- moon_data[-1, ]
 
+  moon_clean <- moon_data |>
+    janitor::clean_names() |>
+    pivot_longer(
+      cols = jan:dec,
+      names_to = "month",
+      values_to = "illumination"
+    ) |>
+    filter(illumination != "--") |>
+    mutate(date = lubridate::as_date(paste0(year, "-", month, "-", day))) |>
+    mutate(minus_date = date - 1) |>
+    select(full_date = minus_date, illumination) |>
+    arrange(full_date) |>
+    mutate(illumination = as.numeric(illumination))
+
+  return(moon_clean)
+}
