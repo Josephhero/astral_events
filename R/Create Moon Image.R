@@ -4,7 +4,7 @@ library(readr)
 library(ggplot2)
 library(gggibbous)
 
-astral <- read_csv("./Data/monicas_astral_data.csv")
+astral <- read_csv("./Data/astral_data.csv")
 today <- as_date(Sys.time(), tz = "America/Los_Angeles")
 
 # Get today's events
