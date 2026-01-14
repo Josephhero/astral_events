@@ -6,10 +6,14 @@ on:
     - cron: '0 13 * * *'
 
 jobs:
-  send_email:
+  create_and_commit_image:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
 
@@ -22,15 +26,39 @@ jobs:
             any::lubridate
             any::ggplot2
             any::gggibbous
-            any::base64enc
-            any::glue
 
+      - name: Create moon image
+        run: Rscript -e 'source("R/create_moon_image.R")'
+
+      - name: Commit moon image
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add Images/moon_phase.png
+          git commit -m 'Update moon phase image' || echo "No changes to commit"
+          git push origin || echo "No changes to commit"
+
+  send_email:
+    runs-on: ubuntu-latest
+    needs: create_and_commit_image
+    steps:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install packages
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::dplyr
+            any::readr
+            any::lubridate
+            any::glue
+
       - name: Run R Script and Capture Email Content
-        run: |
-          Rscript -e 'source("R/monicas_messages.R"); writeLines(em_subject, "email_subject.txt"); writeLines(message, "email_body.txt")'
+        run: Rscript -e 'source("R/monicas_messages.R")'
 
       - name: Read Subject and Body
         id: read_email_content
@@ -47,7 +75,6 @@ jobs:
           username: hefnerjoseph87@gmail.com
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: ${{ steps.read_email_content.outputs.email_subject }}
-          to: hefnerjoseph87@gmail.com
+          to: mmrojas1986@gmail.com
           from: hefnerjoseph87@gmail.com
           html_body: file://email_body.txt
-  
