@@ -75,6 +75,6 @@ jobs:
           username: hefnerjoseph87@gmail.com
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: ${{ steps.read_email_content.outputs.email_subject }}
-          to: mmrojas1986@gmail.com
+          to: hefnerjoseph87@gmail.com
           from: hefnerjoseph87@gmail.com
           html_body: file://email_body.txt
