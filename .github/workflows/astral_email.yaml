@@ -26,6 +26,7 @@ jobs:
             any::lubridate
             any::ggplot2
             any::gggibbous
+            any::base64enc
 
       - name: Create moon image
         run: Rscript -e 'source("R/Create Moon Image.R")'
