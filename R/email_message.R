@@ -31,7 +31,7 @@ next_eclipse <- astral |>
 # URL for your image
 moon_url <- "https://raw.githubusercontent.com/Josephhero/astral_events/main/Images/moon_phase.png"
 
-filename <- paste0("Images/moon_phase_.png")
+filename <- paste0("Images/moon_phase.png")
 moon_base64 <- base64encode(filename)
 
 format_date <- function(date, days = NA) {
