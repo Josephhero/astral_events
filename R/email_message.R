@@ -78,6 +78,6 @@ message <- glue(
 
 # Write outputs for GitHub Actions
 cat(em_subject, file = "email_subject.txt", sep = "")
-cat(message, file = "email_body.txt", sep = "")
+cat(message, file = "email_body.txt", sep = "", fill = FALSE)
 
 
