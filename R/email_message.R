@@ -28,11 +28,20 @@ next_eclipse <- astral |>
   filter(full_date > today, type == "eclipse") |>
   slice(1)
 
-# URL for your image
-moon_url <- "https://raw.githubusercontent.com/Josephhero/astral_events/main/Images/moon_phase.png"
+# Determine moon filename
+illumination_pct <- round(events_today$illumination[1] * 100)
 
-filename <- paste0("Images/moon_phase.png")
-moon_base64 <- base64encode(filename)
+# Get tomorrow's illumination to determine waxing vs waning
+tomorrow <- today + 1
+events_tomorrow <- astral |> filter(full_date == tomorrow)
+is_waxing <- events_tomorrow$illumination[1] > events_today$illumination[1]
+
+# Determine filename
+phase <- if_else(is_waxing, "waxing", "waning")
+moon_filename <- paste0("moon_image_", phase, "_", illumination_pct, ".png")
+
+# URL to the static moon image
+moon_url <- glue("https://raw.githubusercontent.com/Josephhero/astral_events/main/Images/{moon_filename}")
 
 format_date <- function(date, days = NA) {
   if (is.na(date)) {
@@ -65,8 +74,7 @@ em_subject <- glue(
 message <- glue(
   "<b>{format(events_today$full_date[1], '%b %d, %Y')}</b><br><br>",
   "<b>Lunar Illumination:</b> {events_today$illumination[1] * 100}%  ",
-  #"<img src='{moon_url}' alt='Moon' style='width:40px;height:40px;vertical-align:middle;'>",
-  "<img src='data:image/png;base64,{moon_base64}' alt='Moon' style='width:40px;height:40px;vertical-align:middle;'>",
+  "<img src='{moon_url}' alt='Moon' style='width:40px;height:40px;vertical-align:middle;'>",
   "<br>",
   "<b>Age of Moon:</b> {events_today$moon_age[1]} Days<br>",
   "<b>New Moon:</b> {events_today$days_until_new_moon[1]} Days<br><br>",
