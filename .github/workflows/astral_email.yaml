@@ -42,6 +42,6 @@ jobs:
           username: ${{ secrets.EMAIL_FROM }}
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: ${{ steps.read_email_content.outputs.email_subject }}
-          to: ${{ secrets.EMAIL_TO }}
+          to: ${{ secrets.EMAIL_FROM }}
           from: ${{ secrets.EMAIL_FROM }}
           html_body: file://email_body.txt
