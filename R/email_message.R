@@ -38,7 +38,7 @@ is_waxing <- events_tomorrow$illumination[1] > events_today$illumination[1]
 
 # Determine filename
 phase <- if_else(is_waxing, "waxing", "waning")
-moon_filename <- paste0("moon_image_", phase, "_", illumination_pct, ".png")
+moon_filename <- paste0("moon_phase_", phase, "_", illumination_pct, ".png")
 
 # URL to the static moon image
 moon_url <- glue("https://raw.githubusercontent.com/Josephhero/astral_events/main/Images/{moon_filename}")
