@@ -459,8 +459,8 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-03-30,0.96,18,13,17,NA,NA,NA,NA
 2026-03-31,0.99,18,14,16,NA,NA,NA,NA
 2026-04-01,1,18,15,15,NA,NA,NA,NA
-2026-04-02,0.99,18,16,14,NA,NA,NA,NA
-2026-04-03,0.96,18,17,13,NA,NA,NA,NA
+2026-04-02,0.99,18,16,14,Apr 2,other,Pink Moon,"April’s Full Moon is traditionally known as the Pink Full Moon. In 2026, it falls at 02:11 UTC on April 2."
+2026-04-03,0.96,18,17,13,Apr 3,other,Mercury at Greatest Elongation West,This might be a good time to try and spot Mercury: the planet appears at its farthest distance from the Sun in the morning sky.
 2026-04-04,0.91,18,18,12,NA,NA,NA,NA
 2026-04-05,0.84,18,19,11,NA,NA,NA,NA
 2026-04-06,0.77,18,20,10,NA,NA,NA,NA
@@ -470,16 +470,16 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-04-10,0.4,18,24,6,NA,NA,NA,NA
 2026-04-11,0.31,18,25,5,NA,NA,NA,NA
 2026-04-12,0.22,18,26,4,NA,NA,NA,NA
-2026-04-13,0.14,18,27,3,NA,NA,NA,NA
+2026-04-13,0.14,18,27,3,Apr 13/14,other,Earthshine Mornings,"The Waxing and Waning Crescent Moon phases in April and May are the best time to see Earthshine, where the unlit part of the Moon becomes visible. It is also known as Da Vinci glow."
 2026-04-14,0.07,18,28,2,NA,NA,NA,NA
 2026-04-15,0.02,18,29,1,NA,NA,NA,NA
 2026-04-16,0,19,1,30,NA,NA,NA,NA
-2026-04-17,0.01,19,2,29,NA,NA,NA,NA
+2026-04-17,0.01,19,2,29,Apr 17,other,New Moon,"The New Moon of April 2026 falls at 11:51 UTC on the 17th. At New Moon, the far side of the Moon—which we cannot see—is fully illuminated by the Sun."
 2026-04-18,0.04,19,3,28,NA,NA,NA,NA
 2026-04-19,0.11,19,4,27,NA,NA,NA,NA
-2026-04-20,0.19,19,5,26,NA,NA,NA,NA
+2026-04-20,0.19,19,5,26,Apr 20/21,other,Earthshine Nights,"The Waxing and Waning Crescent Moon phases in April and May are the best time to see Earthshine, where the unlit part of the Moon becomes visible. It is also known as Da Vinci glow."
 2026-04-21,0.29,19,6,25,NA,NA,NA,NA
-2026-04-22,0.4,19,7,24,NA,NA,NA,NA
+2026-04-22,0.4,19,7,24,Apr 22/23,meteor,Lyrid Meteor Shower,"The Lyrid meteor shower is expected to peak around April 22 and 23, depending on your location."
 2026-04-23,0.51,19,8,23,NA,NA,NA,NA
 2026-04-24,0.62,19,9,22,NA,NA,NA,NA
 2026-04-25,0.72,19,10,21,NA,NA,NA,NA
@@ -488,25 +488,25 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-04-28,0.94,19,13,18,NA,NA,NA,NA
 2026-04-29,0.98,19,14,17,NA,NA,NA,NA
 2026-04-30,1,19,15,16,NA,NA,NA,NA
-2026-05-01,1,19,16,15,NA,NA,NA,NA
+2026-05-01,1,19,16,15,May 1,other,Flower Moon,May’s Full Moon is known as the Flower Moon after all the flowers that bloom around this time in the Northern Hemisphere.
 2026-05-02,0.98,19,17,14,NA,NA,NA,NA
 2026-05-03,0.94,19,18,13,NA,NA,NA,NA
 2026-05-04,0.89,19,19,12,NA,NA,NA,NA
-2026-05-05,0.83,19,20,11,NA,NA,NA,NA
+2026-05-05,0.83,19,20,11,May 5/6,meteor,Eta Aquarid Meteors,Use our handy Interactive Meteor Shower Sky Map to increase your chances of seeing shooting stars from the Eta Aquarids.
 2026-05-06,0.75,19,21,10,NA,NA,NA,NA
 2026-05-07,0.66,19,22,9,NA,NA,NA,NA
 2026-05-08,0.57,19,23,8,NA,NA,NA,NA
 2026-05-09,0.47,19,24,7,NA,NA,NA,NA
 2026-05-10,0.37,19,25,6,NA,NA,NA,NA
 2026-05-11,0.27,19,26,5,NA,NA,NA,NA
-2026-05-12,0.18,19,27,4,NA,NA,NA,NA
+2026-05-12,0.18,19,27,4,May 12/13,other,Earthshine Mornings,"The Waxing and Waning Crescent Moon phases in April and May are the best time to see Earthshine, where the unlit part of the Moon becomes visible. It is also known as Da Vinci glow."
 2026-05-13,0.1,19,28,3,NA,NA,NA,NA
 2026-05-14,0.04,19,29,2,NA,NA,NA,NA
 2026-05-15,0.01,19,30,1,NA,NA,NA,NA
-2026-05-16,0,20,1,29,NA,NA,NA,NA
+2026-05-16,0,20,1,29,May 16,other,Super New Moon,This month’s New Moon is at 20:01 UTC on May 16. It is the first of two Super New Moons in 2026.
 2026-05-17,0.03,20,2,28,NA,NA,NA,NA
 2026-05-18,0.09,20,3,27,NA,NA,NA,NA
-2026-05-19,0.16,20,4,26,NA,NA,NA,NA
+2026-05-19,0.16,20,4,26,May 19/20,other,Earthshine Nights,"The Waxing and Waning Crescent Moon phases in April and May are the best time to see Earthshine, where the unlit part of the Moon becomes visible. It is also known as Da Vinci glow."
 2026-05-20,0.26,20,5,25,NA,NA,NA,NA
 2026-05-21,0.36,20,6,24,NA,NA,NA,NA
 2026-05-22,0.47,20,7,23,NA,NA,NA,NA
@@ -518,7 +518,7 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-05-28,0.96,20,13,17,NA,NA,NA,NA
 2026-05-29,0.99,20,14,16,NA,NA,NA,NA
 2026-05-30,1,20,15,15,NA,NA,NA,NA
-2026-05-31,0.99,20,16,14,NA,NA,NA,NA
+2026-05-31,0.99,20,16,14,May 31,other,Micro Blue Moon,"Across all time zones, this is the second Full Moon in the month of May, making it a monthly Blue Moon. It is also a Micromoon."
 2026-06-01,0.97,20,17,13,NA,NA,NA,NA
 2026-06-02,0.93,20,18,12,NA,NA,NA,NA
 2026-06-03,0.87,20,19,11,NA,NA,NA,NA
@@ -533,13 +533,14 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-06-12,0.06,20,28,2,NA,NA,NA,NA
 2026-06-13,0.01,20,29,1,NA,NA,NA,NA
 2026-06-14,0,21,1,29,NA,NA,NA,NA
-2026-06-15,0.02,21,2,28,NA,NA,NA,NA
+2026-06-15,0.02,21,2,28,Jun 15,other,Super New Moon,"Following on from May, this is the second and final Super New Moon of 2026."
+2026-06-15,0.02,21,2,28,Jun 15,other,Mercury at Greatest Elongation East,This might be a good time to try and spot Mercury: the planet appears at its farthest distance from the Sun in the evening sky.
 2026-06-16,0.07,21,3,27,NA,NA,NA,NA
 2026-06-17,0.14,21,4,26,NA,NA,NA,NA
 2026-06-18,0.22,21,5,25,NA,NA,NA,NA
 2026-06-19,0.32,21,6,24,NA,NA,NA,NA
 2026-06-20,0.43,21,7,23,NA,NA,NA,NA
-2026-06-21,0.53,21,8,22,NA,NA,NA,NA
+2026-06-21,0.53,21,8,22,Jun 21,solstice,June Solstice,"This solstice is the summer solstice in the Northern Hemisphere, where it is the longest day of the year."
 2026-06-22,0.63,21,9,21,NA,NA,NA,NA
 2026-06-23,0.72,21,10,20,NA,NA,NA,NA
 2026-06-24,0.8,21,11,19,NA,NA,NA,NA
@@ -547,7 +548,7 @@ full_date,illumination,moon_group,moon_age,days_until_new_moon,days,type,title,t
 2026-06-26,0.93,21,13,17,NA,NA,NA,NA
 2026-06-27,0.97,21,14,16,NA,NA,NA,NA
 2026-06-28,0.99,21,15,15,NA,NA,NA,NA
-2026-06-29,1,21,16,14,NA,NA,NA,NA
+2026-06-29,1,21,16,14,Jun 29,other,Micro Strawberry Moon,"The Full Moon in June is often called the Strawberry Full Moon, after the berries that grow in the Northern Hemisphere around this time of the year. As with the Blue Moon at the end of May, it is a Micromoon."
 2026-06-30,0.99,21,17,13,NA,NA,NA,NA
 2026-07-01,0.96,21,18,12,NA,NA,NA,NA
 2026-07-02,0.91,21,19,11,NA,NA,NA,NA
