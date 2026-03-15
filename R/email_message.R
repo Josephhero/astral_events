@@ -2,9 +2,6 @@ library(dplyr)
 library(lubridate)
 library(readr)
 library(glue)
-library(ggplot2)
-library(gggibbous)
-library(base64enc)
 
 
 year <- year(now(tzone = "America/Los_Angeles"))
